@@ -94,6 +94,11 @@
             todos[selectedTodo].task = mtask
             display()
         }
+        const removeAllTodo = e => {
+            // todos.length = 0    this logic is also work
+            todos.splice(0, todos.length)
+            display()
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
