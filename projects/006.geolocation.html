@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap By SKILLHUB</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="root"></div>
+  <button class="btn btn-primary" onclick="handleLocation()">Get Location</button>
+  <script>
+    // window 
+    // document 
+    // navigator
+    const API_KEY = "afea0254ed074ee48d2279f475e67b55"
+    // https://api.opencagedata.com/geocode/v1/json?q=LAT+LNG&key=afea0254ed074ee48d2279f475e67b55
+    const getLocation = data => {
+      const { coords } = data
+      const LAT = coords.latitude
+      const LNG = coords.longitude
+
+      fetch(`https://api.opencagedata.com/geocode/v1/json?q=${LAT}+${LNG}&key=${API_KEY}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          const {
+            postcode,
+            county,
+            city,
+            road,
+            state,
+            suburb } = data.results[0].components
+          document.getElementById("root").innerHTML = city
+        })
+        .catch(err => console.log(err))
+
+
+    }
+    const handelError = err => console.log(err)
+
+    const handleLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getLocation, handelError, { enableHighAccuracy: true })
+      }
+      else {
+        console.log("geolocanyion not avialable")
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
