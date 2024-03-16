@@ -13,3 +13,4 @@ function fToC(fahrenheit) {
 }
 cToF(60)
 fToC(45)
+fToC(75)
